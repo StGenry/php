@@ -86,32 +86,6 @@ echo '2 в степени -1 = '.power(2, -1);
 <h2> Task 7*. Написать функцию, которая вычисляет текущее время и возвращает его в формате с правильными склонениями </h2>
 <p>
 <?php
-// function getHourSpell($number) {
-//     $lastDigit = $number % 10;
-//     if ($number < 10 || floor($number / 10) % 10 !== 1) {
-//         if ($lastDigit === 1) {
-//             return 'час';
-//         }
-//         elseif ($lastDigit > 1 && $lastDigit < 5) {
-//             return 'часа';
-//         }
-//     }
-//     return 'часов';
-// }
-
-// function getMinuteSpell($number) {
-//     $lastDigit = $number % 10;
-//     if ($number < 10 || floor($number / 10) % 10 !== 1) {
-//         if ($lastDigit === 1) {
-//             return 'минута';
-//         }
-//         elseif ($lastDigit > 1 && $lastDigit < 5) {
-//             return 'минуты';
-//         }
-//     }
-//     return 'минут';
-// }
-
 // немного поизвращенски получилось, зато "секунды" добавить можно за 3 секунды ))
 function getNumberSpell($number, $word) {
     $lastDigit = $number % 10;
