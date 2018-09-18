@@ -1,114 +1,136 @@
-<h2> Task 1. Объявить две целочисленные переменные $a и $b
-    и задать им произвольные начальные значения.
-    Затем написать скрипт, который работает по следующему принципу </h2>
-<p>
-    <?php
-$a = 1;
-$b = -1; 
-if ($a >= 0 && $b >= 0) {
-    echo $a - $b;
-} elseif ($a < 0 && $b < 0) {
-    echo $a * $b;
-} else {
-    echo $a + $b;
-}
+<?php
+header("Content-type: text/html; charset=utf-8");
 ?>
-</p>
-<h2> Task 3. Реализовать основные 4 арифметические операции в виде функций с двумя параметрами. Обязательно
-    использовать оператор return. </h2>
-<p>
-    <?php
-function sum($arg1, $arg2)
-{
-    return $arg1 + $arg2;
-}
 
-function diff($arg1, $arg2)
-{
-    return $arg1 - $arg2;
-}
-
-function mult($arg1, $arg2)
-{
-    return $arg1 * $arg2;
-}
-
-function div($arg1, $arg2)
-{
-    return $arg1/$arg2;
-}
-
-echo '4/2 = '.div(4, 2);
-?>
-</p>
-</p>
-<h2> Task 4. Реализовать основные 4 арифметические операции в виде функций с двумя параметрами. Обязательно
-    использовать оператор return. </h2>
-<p>
-    <?php
-function mathOperation($arg1, $arg2, $operation) {
-    switch ($operation) {
-        case 'add':
-            return sum($arg1, $arg2);
-        case 'diff':
-            return diff($arg1, $arg2);
-        case 'mult':
-            return mult($arg1, $arg2);
-        case 'div':
-            return div($arg1, $arg2);
-        // в случае если $operation не один из 4 функция вернет null (т.к. явного возврата нет)
-    }
-}
-
-echo '2 х 2 = '.mathOperation(2, 2, 'mult');
-?>
-</p>
-
-<h2> Task 6*. *С помощью рекурсии организовать функцию возведения числа в степень. Формат: function power($val, $pow),
-    где $val – заданное число, $pow – степень. </h2>
+<h2> Task 1. Вывести которые делятся на 3 без остатка </h2>
 <p>
 <?php
-function power($val, $pow) { // в общем случае, с 0-й и отрицательной степенью
-    if ($pow == 0) { 
-        return 1;
-    } elseif ($pow > 0) { 
-        return $val * power($val, $pow - 1);
+$a = 0; 
+while ($a < 101) {
+    if ($a % 3 == 0) {
+        echo $a.' ';
+    }
+    $a++;
+}
+?>
+</p>
+
+<h2> Task 2. Вывесте от 0 до 10: 0 - это ноль,  1 - нечетное число, 2 - четное число</h2>
+<p>
+<?php
+$a = 0; 
+do {
+    if ($a == 0) {
+        echo $a.' - это ноль<br>';
+    } elseif ($a % 2 == 0) {
+        echo $a.' - четное число<br>';
     } else {
-        return 1.0 / ($val * power (1.0 / $val, $pow + 1));
+        echo $a.' - нечетное число<br>';
     }
+    $a++;
 }
-
-echo '2 в степени 3 = '.power(2, 3).'<br>';
-echo '2 в степени -1 = '.power(2, -1);
+while ($a < 11)
 ?>
 </p>
 
-<h2> Task 7*. Написать функцию, которая вычисляет текущее время и возвращает его в формате с правильными склонениями </h2>
+<h2> Task 3. массив города - области </h2>
 <p>
 <?php
-// немного поизвращенски получилось, зато "секунды" добавить можно за 3 секунды ))
-function getNumberSpell($number, $word) {
-    $lastDigit = $number % 10;
-    if ($number < 10 || floor($number / 10) % 10 !== 1) {
-        if ($lastDigit === 1) {
-            return $word["N"]; // Nominative case (именительный падеж) 
-        }
-        elseif ($lastDigit > 1 && $lastDigit < 5) {
-            return $word["A"]; // Accusative case (винительный падеж)
+$towns = [  "Моск область" => ["Москва", "Зеленоград", "Клин"], 
+            "Лен область" => ["СПб", "Гатчина", "Павловск"],
+            "Рязанская область" => ["Рязань", "Других", "Не", "Знаю", "Интернета", "Нет"]
+        ];
+
+    foreach ($towns as $key => $area) {
+        echo "<p><b>{$key}:</b></p>";
+        foreach ($area as $index => $town) {
+            echo "{$town}".(($index == sizeof($area) - 1) ? "" : ", ");
         }
     }
-    return $word["G"]; // Genitive case (родительный падеж) - вот с названием падежей конечно мог наврать, давно это было.. :)
-}
 
-function getHourSpell($number) {
-    return getNumberSpell($number, ["N" => "час", "A" => "часа", "G" => "часов"]);
-}
+?>
+</p>
 
-function getMinuteSpell($number) {
-    return getNumberSpell($number, ["N" => "минута", "A" => "минуты", "G" => "минут"]);
+<h2> Task 4. массив для транслитерации </h2>
+<p>
+<?php
+function translit($str) {
+    $translitedStr = '';
+    $letters = ['а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'ю' => 'yu', 'я' => 'ya']; // TODO: если успею добью массив, суть не меняет
+    for ($i = 0; $i < mb_strlen($str); $i++) {
+        $translitedStr .= $letters[mb_substr($str, $i, 1)];
+    }
+    return $translitedStr;
 }
+echo translit('абю');
+?>
+</p>
 
-echo '22:15 ---> 22'.getHourSpell(22).' 15'.getMinuteSpell(15).'<br>';
-echo '21:43 ---> 21'.getHourSpell(21).' 43'.getMinuteSpell(43).'<br>';
+<h2> Task 5. заменить пробелы на подчеркивания </h2>
+<p>
+<?php
+function changeSpaces($str) {
+    $translitedStr = '';
+    for ($i = 0; $i < mb_strlen($str); $i++) {
+        $symbol = mb_substr($str, $i, 1);
+        $translitedStr .= ($symbol == ' ') ? '_' : $symbol;
+    }
+    return $translitedStr;
+}
+echo changeSpaces('аб ыф');
+?>
+</p>
+
+<h2> Task 6. меню с вложенностью </h2>
+<p>
+<?php
+$towns = [  "Моск область" => ["Москва", "Зеленоград", "Клин"], 
+"Лен область" => ["СПб", "Гатчина" => ["ул Ленина", "Купчино"]],
+"Рязанская область" => ["Рязань", "Других", "Не", "Знаю", "Интернета", "Нет"]
+];
+function buildMenu($items) {
+    $translitedStr = '';
+    echo "<ul>";
+    foreach ($items as $key => $value) {
+        if(is_array($value)) {
+            echo "<li>{$key}</li>";
+            buildMenu($value);
+        } else {
+            echo "<li>{$value}</li>";
+        }
+    }
+    echo "</ul>";
+}
+echo buildMenu($towns);
+?>
+</p>
+
+<h2> Task 7*. от 0 до 9 без тела цикла </h2>
+<p>
+<?php
+for ($i = 0; $i < 10; $i++, var_dump($i)) {
+    // пусто
+}
+?>
+</p>
+
+<h2> Task 8*. 3-е задание с городами на К </h2>
+<p>
+<?php
+$towns = [  "Моск область" => ["Москва", "Зеленоград", "Клин"], 
+            "Лен область" => ["СПб", "Гатчина", "Павловск"],
+            "Рязанская область" => ["Рязань", "Других", "Не", "Знаю", "Интернета", "Нет"]
+        ];
+
+    foreach ($towns as $key => $area) {
+        echo "<p><b>{$key}:</b></p>";
+        foreach ($area as $index => $town) {
+            if (mb_substr($town, 0, 1) == 'К') {
+                echo "{$town}".(($index == sizeof($area) - 1) ? "" : ", ");
+            }
+            
+        }
+    }
+
 ?>
 </p>
